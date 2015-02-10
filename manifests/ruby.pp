@@ -4,12 +4,12 @@ class profile::ruby {
     class { 'apache::mod::passenger':
         require => [
             Class['ruby'],
-            Apt::source['passenger']
+            Apt::Source['passenger']
         ]
     }
 
 
-    class { 'ruby':
+    class { '::ruby':
         version        => latest,
         gems_version   => latest,
         latest_release => true,
@@ -31,6 +31,6 @@ class profile::ruby {
 
     package { 'passenger-dev':
         ensure  => latest,
-        require => Apt::source[passenger]
+        require => Apt::Source[passenger]
     }
 }

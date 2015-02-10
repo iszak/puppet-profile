@@ -1,8 +1,8 @@
 class profile::apache {
-    class { 'apache':
-        mpm_module   => 'prefork',
-        default_mods => false,
-        default_mods => false,
+    class { '::apache':
+        mpm_module    => 'prefork',
+        default_mods  => false,
+        default_vhost => false,
     }
 
     class { 'apache::mod::deflate': }

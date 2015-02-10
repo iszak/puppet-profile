@@ -12,7 +12,7 @@ class profile::postgresql {
     # TODO: Remove
     file { '/usr/bin/pg_config':
         ensure  => link,
-        require => Class['postgresql::lib::devel']
+        require => Class['postgresql::lib::devel'],
         target  => '/usr/bin/pg_config.libpq-dev'
     }
 

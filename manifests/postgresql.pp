@@ -1,9 +1,9 @@
 class profile::postgresql {
-    class { 'postgresql::globals': }
-    class { 'postgresql::client': }
     class { 'postgresql::server':
-        require => Class['postgresql::globals']
+      encoding => 'UTF-8',
+      locale   => 'en_US.UTF-8',
     }
+    class { 'postgresql::client': }
 
     class { 'postgresql::lib::devel':
         link_pg_config => false

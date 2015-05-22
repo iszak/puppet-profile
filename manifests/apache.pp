@@ -5,6 +5,7 @@ class profile::apache {
         default_vhost => false,
     }
 
+    class { 'apache::mod::mime': }
     class { 'apache::mod::deflate': }
     class { 'apache::mod::ssl': }
     class { 'apache::mod::proxy': }

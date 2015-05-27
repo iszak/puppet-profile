@@ -7,4 +7,13 @@ class profile::base {
     }
 
     include ::apt::unattended_upgrades
+
+
+    class { '::ssh':
+        server_options => {
+            'AllowTcpForwarding'     => 'no',
+            'X11Forwarding'          => 'no',
+            'PasswordAuthentication' => 'no',
+        }
+    }
 }

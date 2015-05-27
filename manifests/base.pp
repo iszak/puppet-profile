@@ -9,9 +9,9 @@ class profile::base {
     include ::apt::unattended_upgrades
 
 
-    class { '::ssh':
+    class { '::ssh::server':
         storeconfigs_enabled => false,
-        server_options       => {
+        options => {
             'LoginGraceTime'                  => 120,
             'StrictModes'                     => 'yes',
             'PrintMotd'                       => 'no',

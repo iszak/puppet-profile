@@ -3,8 +3,8 @@ class profile::apache {
         mpm_module       => 'prefork',
         default_mods     => false,
         default_vhost    => false,
-        server_tokens    => 'Prod'
-        server_signature => 'Off'
+        server_tokens    => 'Prod',
+        server_signature => 'Off',
     }
 
     class { 'apache::mod::mime': }

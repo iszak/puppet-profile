@@ -10,7 +10,12 @@ class profile::base {
 
 
     class { '::ssh':
-        server_options => {
+        storeconfigs_enabled => false,
+        server_options       => {
+            'LoginGraceTime'         => 120,
+            'StrictModes'            => 'yes',
+            'PrintMotd'              => 'no',
+            'PermitRootLogin'        => 'no',
             'AllowTcpForwarding'     => 'no',
             'X11Forwarding'          => 'no',
             'PasswordAuthentication' => 'no',

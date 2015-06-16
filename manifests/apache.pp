@@ -7,6 +7,7 @@ class profile::apache {
         server_signature => 'Off',
     }
 
+    class { 'apache::mod::dir': }
     class { 'apache::mod::mime': }
     class { 'apache::mod::deflate': }
     class { 'apache::mod::ssl': }

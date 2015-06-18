@@ -6,14 +6,7 @@ class profile::postgresql {
     class { 'postgresql::client': }
 
     class { 'postgresql::lib::devel':
-        link_pg_config => false
-    }
-
-    # TODO: Remove
-    file { '/usr/bin/pg_config':
-        ensure  => link,
-        require => Class['postgresql::lib::devel'],
-        target  => '/usr/bin/pg_config.libpq-dev'
+        link_pg_config => true
     }
 
     package { 'postgresql-server-dev-9.3':

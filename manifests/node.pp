@@ -1,15 +1,11 @@
 class profile::node {
-    include profile::apache
+    include ::profile::apache
 
     class { 'nodejs':
-        version     => latest,
-        dev_package => true,
-        manage_repo => false,
-    }
-
-    package { 'npm':
-        ensure  => latest,
-        require => Class[nodejs]
+        nodejs_package_ensure     => latest,
+        nodejs_dev_package_ensure => latest,
+        npm_package_ensure        => latest,
+        manage_package_repo       => false,
     }
 
     file { '/usr/bin/node':

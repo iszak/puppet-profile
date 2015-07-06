@@ -1,5 +1,5 @@
 class profile::ruby {
-    include profile::apache
+    include ::profile::apache
 
     class { 'apache::mod::passenger':
         require => [

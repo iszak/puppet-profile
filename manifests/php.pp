@@ -1,5 +1,5 @@
 class profile::php {
-    include profile::apache
+    include ::profile::apache
 
     class { 'apache::mod::php': }
 }

@@ -11,7 +11,7 @@ class profile::base {
 
     class { '::ssh::server':
         storeconfigs_enabled => false,
-        options => {
+        options              => {
             'LoginGraceTime'                  => 120,
             'StrictModes'                     => 'yes',
             'PrintMotd'                       => 'no',

@@ -3,26 +3,26 @@
   "version": "0.0.1",
   "author": "Iszak Bryan",
   "summary": "A module for managing different profile types",
-  "license": "Apache 2.0",
+  "license": "GPL-3.0",
   "source": "https://github.com/iszak/puppet-profile.git",
   "project_page": "https://github.com/iszak/puppet-profile",
   "issues_url": "https://github.com/iszak/puppet-profile/issues",
   "dependencies": [
-    {"name":"puppetlabs/apache","version_requirement":">= 1.0.0 < 2.0.0"},
-    {"name":"puppetlabs/apt","version_requirement":">= 1.0.0 < 2.0.0"},
-    {"name":"puppetlabs/git","version_requirement":">= 0.0.0 < 1.0.0"},
-    {"name":"puppetlabs/concat","version_requirement":">= 1.0.0 < 2.0.0"},
-    {"name":"puppetlabs/nodejs","version_requirement":">= 0.8.0 < 1.0.0"},
-    {"name":"puppetlabs/ntp","version_requirement":">= 4.0.0 < 5.0.0"},
-    {"name":"puppetlabs/postgresql","version_requirement":">= 4.0.0 < 5.0.0"},
-    {"name":"puppetlabs/stdlib","version_requirement":">= 4.0.0 < 5.0.0"},
-    {"name":"puppet/collectd","version_requirement":">= 4.0.0 < 5.0.0"}
+    {"name":"puppetlabs/apache", "version_requirement":">= 1.0.0 < 2.0.0"},
+    {"name":"puppetlabs/apt", "version_requirement":">= 1.0.0 < 2.0.0"},
+    {"name":"puppetlabs/git", "version_requirement":">= 0.0.0 < 1.0.0"},
+    {"name":"puppetlabs/concat", "version_requirement":">= 1.0.0 < 2.0.0"},
+    {"name":"puppetlabs/nodejs", "version_requirement":">= 0.8.0 < 1.0.0"},
+    {"name":"puppetlabs/ntp", "version_requirement":">= 4.0.0 < 5.0.0"},
+    {"name":"puppetlabs/postgresql", "version_requirement":">= 4.0.0 < 5.0.0"},
+    {"name":"puppetlabs/stdlib", "version_requirement":">= 4.0.0 < 5.0.0"},
+    {"name":"puppet/collectd", "version_requirement":">= 4.0.0 < 5.0.0"},
 
-    {"name":"dwerder/graphite","version_requirement":">= 5.0.0 < 6.0.0"}
+    {"name":"dwerder/graphite", "version_requirement":">= 5.0.0 < 6.0.0"},
 
-    {"name":"garethr/rustlang","version_requirement":">= 0.0.0 < 1.0.0"}
-    {"name":"garethr/golang","version_requirement":">= 0.0.0 < 1.0.0"}
+    {"name":"garethr/rustlang", "version_requirement":">= 0.0.0 < 1.0.0"},
+    {"name":"garethr/golang", "version_requirement":">= 0.0.0 < 1.0.0"},
 
-    {"name":"saz/ssh","version_requirement":">= 2.0.0 < 3.0.0"}
+    {"name":"saz/ssh", "version_requirement":">= 2.0.0 < 3.0.0"}
   ]
 }

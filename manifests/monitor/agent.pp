@@ -27,7 +27,7 @@ class profile::monitor::agent(
   }
 
   if ($apache) {
-    if not defined(Class['profile::apache']) {
+    if !defined(Class['profile::apache']) {
       fail('Apache is not defined')
     } else {
       include ::collectd::plugin::apache
@@ -55,7 +55,7 @@ class profile::monitor::agent(
   }
 
   if ($postgresql) {
-    if not defined(Class['profile::postgresql']) {
+    if !defined(Class['profile::postgresql']) {
       fail('PostgreSQL is not defined')
     } else {
       include ::collectd::plugin::postgresql

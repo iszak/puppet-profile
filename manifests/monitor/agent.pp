@@ -39,13 +39,18 @@ class profile::monitor::agent(
 
   if ($cpu) {
     class { '::collectd::plugin::cpu':
-      interval => 1
+      interval         => 1,
+      reportbycpu      => true,
+      reportbystate    => false,
+      valuespercentage => true,
     }
   }
 
   if ($disk) {
     class { '::collectd::plugin::df':
-      interval => 1
+      interval         => 1,
+      reportinodes     => false,
+      valuespercentage => true,
     }
   }
 
@@ -63,7 +68,8 @@ class profile::monitor::agent(
 
   if ($memory) {
     class { '::collectd::plugin::memory':
-      interval => 1
+      interval         => 1,
+      valuespercentage => true,
     }
   }
 
@@ -83,10 +89,10 @@ class profile::monitor::agent(
 
   if ($swap) {
     class { '::collectd::plugin::swap':
-      interval => 1
+      interval         => 1,
+      valuespercentage => true
     }
   }
-
   if ($users) {
     class { '::collectd::plugin::users':
       interval => 1

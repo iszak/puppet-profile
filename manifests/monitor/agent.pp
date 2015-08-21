@@ -1,15 +1,18 @@
 class profile::monitor::agent(
-  $apache = true,
+  $backend,
+  $apache = false,
+  $cpu = true,
   $disk = true,
   $entropy = true,
   $load = true,
   $memory = true,
   $network = true,
-  $postgresql = true,
+  $postgresql = false,
   $swap = true,
-  $user = true,
+  $users = true,
 ) {
   validate_bool($apache)
+  validate_bool($backend)
   validate_bool($disk)
   validate_bool($entropy)
   validate_bool($load)
@@ -18,7 +21,7 @@ class profile::monitor::agent(
   validate_bool($apache)
   validate_bool($postgresql)
   validate_bool($swap)
-  validate_bool($user)
+  validate_bool($users)
 
   class { '::collectd':
     purge        => true,
@@ -34,12 +37,22 @@ class profile::monitor::agent(
     }
   }
 
+  if ($backend) {
+    collectd::plugin::write_graphite::carbon { $backend:
+      graphitehost => $backend,
+    }
+  }
+
+  if ($cpu) {
+    include ::collectd::plugin::cpu
+  }
+
   if ($disk) {
     include ::collectd::plugin::df
   }
 
   if ($entropy) {
-    include ::collectd::plugin::entrophy
+    include ::collectd::plugin::entropy
   }
 
   if ($load) {
@@ -66,8 +79,8 @@ class profile::monitor::agent(
     include ::collectd::plugin::swap
   }
 
-  if ($user) {
-    include ::collectd::plugin::user
+  if ($users) {
+    include ::collectd::plugin::users
   }
 }
 

@@ -12,7 +12,7 @@ class profile::monitor::agent(
   $users = true,
 ) {
   validate_bool($apache)
-  validate_bool($backend)
+  validate_string($backend)
   validate_bool($disk)
   validate_bool($entropy)
   validate_bool($load)
@@ -37,34 +37,40 @@ class profile::monitor::agent(
     }
   }
 
-  if ($backend) {
-    collectd::plugin::write_graphite::carbon { $backend:
-      graphitehost => $backend,
+  if ($cpu) {
+    class { '::collectd::plugin::cpu':
+      interval => 1
     }
   }
 
-  if ($cpu) {
-    include ::collectd::plugin::cpu
-  }
-
   if ($disk) {
-    include ::collectd::plugin::df
+    class { '::collectd::plugin::df':
+      interval => 1
+    }
   }
 
   if ($entropy) {
-    include ::collectd::plugin::entropy
+    class { '::collectd::plugin::entropy':
+      interval => 1
+    }
   }
 
   if ($load) {
-    include ::collectd::plugin::load
+    class { '::collectd::plugin::load':
+      interval => 1
+    }
   }
 
   if ($memory) {
-    include ::collectd::plugin::memory
+    class { '::collectd::plugin::memory':
+      interval => 1
+    }
   }
 
   if ($network) {
-    include ::collectd::plugin::interface
+    class { '::collectd::plugin::interface':
+      interval => 1
+    }
   }
 
   if ($postgresql) {
@@ -76,11 +82,20 @@ class profile::monitor::agent(
   }
 
   if ($swap) {
-    include ::collectd::plugin::swap
+    class { '::collectd::plugin::swap':
+      interval => 1
+    }
   }
 
   if ($users) {
-    include ::collectd::plugin::users
+    class { '::collectd::plugin::users':
+      interval => 1
+    }
+  }
+
+  if ($backend) {
+    collectd::plugin::write_graphite::carbon { $backend:
+      graphitehost => $backend,
+    }
   }
 }
-

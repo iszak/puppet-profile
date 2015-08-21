@@ -1,5 +1,5 @@
 class profile::go (
-  ensure => 'present',
+  $ensure => 'present',
 ) {
   validate_re($ensure, '^(present|absent)$')
 

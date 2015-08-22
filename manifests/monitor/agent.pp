@@ -101,7 +101,8 @@ class profile::monitor::agent(
 
   if ($backend) {
     collectd::plugin::write_graphite::carbon { $backend:
-      graphitehost => $backend,
+      graphitehost      => $backend,
+      separateinstances => true,
     }
   }
 }

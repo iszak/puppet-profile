@@ -21,7 +21,7 @@ class profile::monitor::agent(
   validate_bool($network)
   validate_bool($apache)
   validate_bool($postgresql)
-  validate_bool($porcesses)
+  validate_bool($processes)
   validate_bool($swap)
   validate_bool($users)
 

@@ -8,6 +8,7 @@ class profile::monitor::agent(
   $memory = true,
   $network = true,
   $postgresql = false,
+  $processes = true,
   $swap = true,
   $users = true,
 ) {
@@ -20,6 +21,7 @@ class profile::monitor::agent(
   validate_bool($network)
   validate_bool($apache)
   validate_bool($postgresql)
+  validate_bool($porcesses)
   validate_bool($swap)
   validate_bool($users)
 
@@ -40,7 +42,7 @@ class profile::monitor::agent(
   if ($cpu) {
     class { '::collectd::plugin::cpu':
       interval         => 1,
-      reportbycpu      => true,
+      reportbycpu      => false,
       reportbystate    => false,
       valuespercentage => true,
     }
@@ -50,6 +52,7 @@ class profile::monitor::agent(
     class { '::collectd::plugin::df':
       interval         => 1,
       reportinodes     => false,
+      valuesabsolute   => false,
       valuespercentage => true,
     }
   }
@@ -69,6 +72,7 @@ class profile::monitor::agent(
   if ($memory) {
     class { '::collectd::plugin::memory':
       interval         => 1,
+      valuesabsolute   => false,
       valuespercentage => true,
     }
   }
@@ -87,12 +91,20 @@ class profile::monitor::agent(
     }
   }
 
+  if ($processes) {
+    class { '::collectd::plugin::processes':
+      interval => 1
+    }
+  }
+
   if ($swap) {
     class { '::collectd::plugin::swap':
       interval         => 1,
+      valuesabsolute   => false,
       valuespercentage => true
     }
   }
+
   if ($users) {
     class { '::collectd::plugin::users':
       interval => 1

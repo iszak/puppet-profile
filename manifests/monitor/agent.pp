@@ -26,6 +26,7 @@ class profile::monitor::agent(
   validate_bool($users)
 
   class { '::collectd':
+    fqdnlookup   => false,
     purge        => true,
     recurse      => true,
     purge_config => true,

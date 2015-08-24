@@ -1,0 +1,195 @@
+#!/usr/bin/env bash
+
+# seyren - Startup script for seyren
+
+# chkconfig: 35 85 15
+# description: Seyren - Graphite Alerting Tool
+# processname: seyren
+# config /usr/local/seyren-master
+# pidfile: /usr/local/seyren-master/seyren.pid
+
+. /lib/lsb/init-functions
+
+## Environment Variables
+GRAPHS_ENABLE="<%= @graphs_enable %>"
+export GRAPHS_ENABLE
+
+
+# Seyren
+SEYREN_URL="<%= @seyren_url %>"
+export SEYREN_URL
+
+SEYREN_LOG_PATH="<%= @seyren_log_path %>"
+export SEYREN_LOG_PATH
+
+SEYREN_LOG_FILE_LEVEL="<%= @seyren_log_file_level %>"
+export SEYREN_LOG_FILE_LEVEL
+
+SEYREN_THREADS="<%= @seyren_threads %>"
+export SEYREN_THREADS
+
+
+# Mongo
+MONGO_URL="<%= @mongo_url %>"
+export MONGO_URL
+
+
+# Graphite
+GRAPHITE_URL="<%= @graphite_url %>"
+export GRAPHITE_URL
+
+GRAPHITE_REFRESH="<%= @graphite_refresh %>"
+export GRAPHITE_REFRESH
+
+GRAPHITE_USERNAME="<%= @graphite_username %>"
+export GRAPHITE_USERNAME
+
+GRAPHITE_PASSWORD="<%= @graphite_password %>"
+export GRAPHITE_PASSWORD
+
+GRAPHITE_KEYSTORE="<%= @graphite_keystore %>"
+export GRAPHITE_KEYSTORE
+
+GRAPHITE_KEYSTORE_PASSWORD="<%= @graphite_keystore_password %>"
+export GRAPHITE_KEYSTORE_PASSWORD
+
+GRAPHITE_TRUSTSTORE="<%= @graphite_truststore %>"
+export GRAPHITE_TRUSTSTORE
+
+GRAPHITE_CONNECTION_REQUEST_TIMEOUT="<%= @graphite_connection_request_timeout %>"
+export GRAPHITE_CONNECTION_REQUEST_TIMEOUT
+
+GRAPHITE_CONNECT_TIMEOUT="<%= @graphite_connect_timeout %>"
+export GRAPHITE_CONNECT_TIMEOUT
+
+GRAPHITE_SOCKET_TIMEOUT="<%= @graphite_socket_timeout %>"
+export GRAPHITE_SOCKET_TIMEOUT
+
+GRAPHITE_CARBON_PICKLE_ENABLE="<%= @graphite_carbon_pickle_enable %>"
+export GRAPHITE_CARBON_PICKLE_ENABLE
+
+GRAPHITE_CARBON_PICKLE_PORT="<%= @graphite_carbon_pickle_port %>"
+export GRAPHITE_CARBON_PICKLE_PORT
+
+
+# SMTP
+SMTP_HOST="<%= @smtp_host %>"
+export SMTP_HOST
+
+SMTP_PORT="<%= @smtp_port %>"
+export SMTP_PORT
+
+SMTP_FROM="<%= @smtp_from %>"
+export SMTP_FROM
+
+SMTP_USERNAME="<%= @smtp_username %>"
+export SMTP_USERNAME
+
+SMTP_PASSWORD="<%= @smtp_password %>"
+export SMTP_PASSWORD
+
+SMTP_PROTOCOL="<%= @smtp_protocol %>"
+export SMTP_PROTOCOL
+
+
+# HTTP
+HTTP_NOTIFICATION_URL="<%= @http_notification_url %>"
+export HTTP_NOTIFICATION_URL
+
+
+# Flowdock
+FLOWDOCK_EXTERNAL_USERNAME="<%= @flowdock_external_username %>"
+export FLOWDOCK_EXTERNAL_USERNAME
+
+FLOWDOCK_TAGS="<%= @flowdock_tags %>"
+export FLOWDOCK_TAGS
+
+FLOWDOCK_EMOJIS="<%= @flowdock_emojis %>"
+export FLOWDOCK_EMOJIS
+
+
+# Hipchat
+HIPCHAT_AUTHTOKEN="<%= @hipchat_authtoken %>"
+export HIPCHAT_AUTHTOKEN
+
+HIPCHAT_USERNAME="<%= @hipchat_username %>"
+export HIPCHAT_USERNAME
+
+
+# Hubot
+HUBOT_URL="<%= @hubot_url %>"
+export HUBOT_URL
+
+
+# IRC Cat
+IRCCAT_HOST="<%= @irccat_host %>"
+export IRCCAT_HOST
+
+IRCCAT_PORT="<%= @irccat_port %>"
+export IRCCAT_PORT
+
+
+# Pushover
+PUSHOVER_APP_API_TOKEN="<%= @pushover_app_api_token %>"
+export PUSHOVER_APP_API_TOKEN
+
+
+PIDGET=$(ps -ef | grep seyren | grep -v grep | awk '{print $2}')
+
+# Seyren Daemon - Enter your Java location and seyren-master install directories - Amend the log directory if needed
+
+seyrend=${SEYREND- <%= @java_bin %> -jar <%= @seyren_path %>/seyren.jar &}
+
+SEYREN_USER=<%= @user %>
+SEYREN_GROUP=<%= @group %>
+LOCK_PATH=/var/lock/seyrend
+
+start()
+{
+  echo -n $"Starting seyren: "
+  daemon --name="seyren" -- $seyrend
+  RETVAL=$?
+  echo
+  [ $RETVAL -eq 0 ] && touch $LOCK_PATH
+}
+
+stop()
+{
+  echo -n $"Stopping seyren: "
+  /bin/kill -9 $PIDGET
+  RETVAL=$?
+  echo
+  [ $RETVAL -eq 0 ] && rm -f $LOCK_PATH
+}
+
+restart () {
+        stop
+        start
+}
+
+ulimit -n 12000
+RETVAL=0
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart|reload|force-reload)
+    restart
+    ;;
+  condrestart)
+    [ -f $LOCK_PATH ] && restart || :
+    ;;
+  status)
+    status -- $seyrend
+    RETVAL=$?
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}"
+    RETVAL=1
+esac
+
+exit $RETVAL

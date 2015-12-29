@@ -132,7 +132,7 @@ class profile::monitor::alert(
 
   exec { 'wget seyren':
     require => File[$seyren_path],
-    command => "/usr/bin/wget ${download_url} --quiet --output-document=${seyren_path}/${filename}"
+    command => "/usr/bin/wget ${download_url} --quiet --output-document=${seyren_path}/${filename}",
     unless  => "/usr/bin/test -f ${seyren_path}/${filename}"
   }
 
@@ -144,7 +144,7 @@ class profile::monitor::alert(
   }
 
   file { $init_path:
-    mode    => 0754,
+    mode    => '0754',
     owner   => 'root',
     group   => 'root',
     content => template('profile/monitor/alert/initd.erb'),
